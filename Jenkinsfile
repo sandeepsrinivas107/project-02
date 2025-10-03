@@ -26,7 +26,7 @@ pipeline {
     }
     post {
         success {
-            emailext to: "ksandeepsrinivas17@gmail.com",
+            emailext to: "sumanthsamy123@gmail.com",
             recipientProviders: [developers()],
             subject: "jenkins Pipe : ${currentBuild.currentResult}: ${env.JOB_NAME}",
             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\n More Info can be found here: ${env.BUILD_URL}",
