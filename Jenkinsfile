@@ -18,10 +18,23 @@ pipeline {
             steps {
                 deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'Tomcat-01-key', 
                 path: '', 
-                url: 'http://65.1.132.127:8080/')], 
+                url: 'http://13.233.250.18:8080/')], 
                 contextPath: 'project-02', 
                 war: '**/*.war'
             }
+        }
+    }
+    post {
+        success {
+            emailext to: "ksandeepsrinivas17@gmail.com",
+            recipientProviders: [developers()],
+            subject: "jenkins Pipe : ${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\n More Info can be found here: ${env.BUILD_URL}",
+ 
+            attachLog: true
+           
+            slackSend message: "Build deployed successfully - Job ${env.JOB_NAME}\n More Info can be found here: ${env.BUILD_URL}"
+ 
         }
     }
 }
